@@ -686,9 +686,15 @@ function goPrev() {
 }
 
 /* SUBMIT */
+var _submitDone = false;
 async function doSubmit() {
+  if (_submitDone) return;
+  _submitDone = true;
   var btn = document.getElementById("btn-next-dim");
-  if (btn) { btn.disabled = true; btn.textContent = "Calcul en cours…"; }
+  if (btn) { btn.disabled = true; btn.style.opacity = "0.5"; btn.textContent = "…"; }
+  // Désactiver aussi le bouton de la carte identité
+  var btn2 = document.querySelector('#id-card-final .btn-next');
+  if (btn2) { btn2.disabled = true; btn2.style.opacity = "0.5"; btn2.textContent = "…"; }
   var payload = Object.assign({
     anonyme  : isAnonAudit ? "Oui" : "Non",
     prenom   : isAnonAudit ? "" : document.getElementById("prenom").value.trim(),
