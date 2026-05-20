@@ -321,7 +321,7 @@ footer a{color:rgba(245,239,230,.65);text-decoration:none}
   <div id="step-0">
     <div style="background:white;border:1px solid var(--beige);border-radius:18px;padding:1.5rem 1.4rem;margin-bottom:1.4rem;box-shadow:0 2px 10px rgba(17,96,124,.07)">
       <h2 style="font-family:'EB Garamond',serif;font-size:1.05rem;font-weight:600;color:var(--bleu-fonce);margin-bottom:.75rem">🎯 À propos de cet audit</h2>
-      <p style="font-size:.88rem;color:var(--gris);line-height:1.7;margin-bottom:1rem">Cet outil évalue votre maturité IA sur <strong style="color:var(--encre)">5 dimensions</strong> en <strong style="color:var(--encre)">10 questions</strong>, selon le modèle Holmström. Chaque réponse est notée de <strong style="color:var(--encre)">0 (ignoré)</strong> à <strong style="color:var(--encre)">4 (pleinement intégré)</strong>. Comptez environ 5 minutes.</p>
+      <p style="font-size:.88rem;color:var(--gris);line-height:1.7;margin-bottom:1rem">Cet outil évalue votre maturité IA sur <strong style="color:var(--encre)">6 dimensions</strong> en <strong style="color:var(--encre)">10 questions</strong>, selon le modèle Holmström. Chaque réponse est notée de <strong style="color:var(--encre)">0 (ignoré)</strong> à <strong style="color:var(--encre)">4 (pleinement intégré)</strong>. Comptez environ 5 minutes.</p>
       <div style="display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center">
         <span style="background:rgba(124,58,237,.08);color:#7c3aed;border-radius:99px;padding:3px 12px;font-size:.75rem;font-weight:600">🎯 Vision Stratégique</span>
         <span style="background:rgba(8,145,178,.08);color:#0891b2;border-radius:99px;padding:3px 12px;font-size:.75rem;font-weight:600">🧭 Leadership Managérial</span>
@@ -598,7 +598,7 @@ function buildDim(dimIdx) {
         + '<div class="dim-hdr">'
         + '<div class="dim-ico">' + d.icon + '</div>'
         + '<div class="dim-meta"><h3>' + d.title + '</h3><span>' + d.desc + '</span></div>'
-        + '<span class="dim-badge">' + d.qs.length + ' questions</span>'
+        + '<span class="dim-badge">' + d.qs.length + (d.qs.length > 1 ? ' questions' : ' question') + '</span>'
         + '</div><div class="q-list">';
 
   d.qs.forEach(function(q, qi) {
