@@ -229,6 +229,43 @@ body{font-family:'Inter',sans-serif;background:var(--creme);color:var(--encre);m
 footer{background:var(--bleu-fonce);padding:1.2rem 2rem;text-align:center}
 footer p{font-size:.73rem;color:rgba(245,239,230,.5);letter-spacing:.04em}
 footer a{color:rgba(245,239,230,.65);text-decoration:none}
+/* ACCORDÉON COMMENT RÉPONDRE */
+.accordion{margin-top:1rem;border:1px solid var(--beige);border-radius:12px;overflow:hidden}
+.accordion-btn{
+  display:flex;align-items:center;justify-content:space-between;
+  width:100%;padding:11px 16px;
+  background:var(--ivoire);border:none;cursor:pointer;
+  font-family:'Inter',sans-serif;font-size:.82rem;font-weight:600;
+  color:var(--gris);text-align:left;transition:background .15s
+}
+.accordion-btn:hover{background:#ede8df}
+.accordion-btn .acc-icon{
+  font-size:.75rem;transition:transform .25s;flex-shrink:0;margin-left:8px
+}
+.accordion-btn.open .acc-icon{transform:rotate(180deg)}
+.accordion-body{
+  max-height:0;overflow:hidden;
+  transition:max-height .35s ease,padding .2s ease;
+  background:white;padding:0 16px
+}
+.accordion-body.open{max-height:600px;padding:12px 16px}
+.accordion-body .acc-grid{border:1px solid var(--beige);border-radius:10px;overflow:hidden;margin-bottom:.5rem}
+.acc-row{display:grid;grid-template-columns:38px 88px 1fr;font-size:.78rem}
+.acc-row:not(:last-child){border-bottom:1px solid var(--beige)}
+.acc-row.header{background:var(--bleu-fonce);color:rgba(245,239,230,.75);font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.acc-row.alt{background:var(--ivoire)}
+.acc-cell{padding:7px 10px;line-height:1.35}
+.acc-num{font-weight:800;color:var(--bleu);text-align:center}
+.acc-row.alt .acc-num{color:var(--bleu)}
+.acc-row:last-child .acc-num{color:var(--sage)}
+.acc-note{font-size:.72rem;color:var(--gris);font-style:italic;line-height:1.5}
+
+/* MOBILE : bouton Suivant AVANT Précédent */
+@media(max-width:600px){
+  .nav-wrap{flex-direction:column-reverse;gap:.6rem}
+  .btn-prev,.btn-next{width:100%;justify-content:center}
+}
+
 .toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(150%);background:var(--encre);border-radius:99px;padding:.85rem 1.5rem;display:flex;align-items:center;gap:10px;font-size:.86rem;color:var(--creme);box-shadow:0 6px 28px rgba(0,0,0,.22);z-index:999;transition:transform .32s ease;min-width:260px;max-width:88vw}
 .toast.on{transform:translateX(-50%) translateY(0)}
 .toast.err{background:#b94a24}.toast.ok{background:var(--sage)}
@@ -362,53 +399,6 @@ footer a{color:rgba(245,239,230,.65);text-decoration:none}
 
     <div class="nav-wrap" style="justify-content:center;margin-top:0">
       <button class="btn-next" onclick="goNext()">Commencer l'audit →</button>
-    </div>
-  </div>
-
-  <!-- PAGE INTERMÉDIAIRE : Comment répondre -->
-  <div id="step-comprendre" style="display:none">
-    <div style="background:white;border:1px solid var(--beige);border-radius:18px;padding:1.35rem 1.4rem;margin-bottom:1.4rem;box-shadow:0 2px 10px rgba(17,96,124,.07)">
-      <h2 style="font-family:'EB Garamond',serif;font-size:1.05rem;font-weight:600;color:var(--bleu-fonce);margin-bottom:.9rem">💡 Comment répondre ?</h2>
-      <p style="font-size:.86rem;color:var(--gris);line-height:1.65;margin-bottom:1rem">Chaque question évalue où en est votre organisation <strong style="color:var(--encre)">aujourd'hui</strong>. Choisissez le niveau qui correspond le mieux à votre réalité — pas à vos ambitions.</p>
-      <div style="border:1px solid var(--beige);border-radius:12px;overflow:hidden">
-        <div style="display:grid;grid-template-columns:48px 100px 1fr;background:var(--bleu-fonce)">
-          <div style="padding:8px 12px;font-size:.72rem;font-weight:700;color:rgba(245,239,230,.7);text-transform:uppercase;letter-spacing:.06em">Score</div>
-          <div style="padding:8px 12px;font-size:.72rem;font-weight:700;color:rgba(245,239,230,.7);text-transform:uppercase;letter-spacing:.06em">Niveau</div>
-          <div style="padding:8px 12px;font-size:.72rem;font-weight:700;color:rgba(245,239,230,.7);text-transform:uppercase;letter-spacing:.06em">Ce que ça veut dire concrètement</div>
-        </div>
-        <div style="display:grid;grid-template-columns:48px 100px 1fr;border-top:1px solid var(--beige);background:white">
-          <div style="padding:10px 12px;font-size:1.1rem;font-weight:800;color:var(--bleu);text-align:center">0</div>
-          <div style="padding:10px 12px;font-size:.85rem;font-weight:600;color:var(--encre)">Ignoré</div>
-          <div style="padding:10px 12px;font-size:.83rem;color:var(--gris);line-height:1.45">Ce sujet n'est pas encore sur notre radar</div>
-        </div>
-        <div style="display:grid;grid-template-columns:48px 100px 1fr;border-top:1px solid var(--beige);background:var(--ivoire)">
-          <div style="padding:10px 12px;font-size:1.1rem;font-weight:800;color:var(--bleu);text-align:center">1</div>
-          <div style="padding:10px 12px;font-size:.85rem;font-weight:600;color:var(--encre)">Informel</div>
-          <div style="padding:10px 12px;font-size:.83rem;color:var(--gris);line-height:1.45">On en parle, mais rien de structuré ni de formalisé</div>
-        </div>
-        <div style="display:grid;grid-template-columns:48px 100px 1fr;border-top:1px solid var(--beige);background:white">
-          <div style="padding:10px 12px;font-size:1.1rem;font-weight:800;color:var(--bleu);text-align:center">2</div>
-          <div style="padding:10px 12px;font-size:.85rem;font-weight:600;color:var(--encre)">Pilote</div>
-          <div style="padding:10px 12px;font-size:.83rem;color:var(--gris);line-height:1.45">Des initiatives existent, mais elles restent isolées ou expérimentales</div>
-        </div>
-        <div style="display:grid;grid-template-columns:48px 100px 1fr;border-top:1px solid var(--beige);background:var(--ivoire)">
-          <div style="padding:10px 12px;font-size:1.1rem;font-weight:800;color:var(--bleu);text-align:center">3</div>
-          <div style="padding:10px 12px;font-size:.85rem;font-weight:600;color:var(--encre)">Structuré</div>
-          <div style="padding:10px 12px;font-size:.83rem;color:var(--gris);line-height:1.45">Des processus clairs sont en place, le management s'investit activement</div>
-        </div>
-        <div style="display:grid;grid-template-columns:48px 100px 1fr;border-top:1px solid var(--beige);background:white">
-          <div style="padding:10px 12px;font-size:1.1rem;font-weight:800;color:var(--sage);text-align:center">4</div>
-          <div style="padding:10px 12px;font-size:.85rem;font-weight:600;color:var(--encre)">Intégré</div>
-          <div style="padding:10px 12px;font-size:.83rem;color:var(--gris);line-height:1.45">C'est ancré dans nos pratiques quotidiennes et ça crée de la valeur mesurable</div>
-        </div>
-      </div>
-      <p style="font-size:.78rem;color:var(--gris);font-style:italic;margin-top:.85rem;line-height:1.55">💬 <strong style="color:var(--encre);font-style:normal">Soyez honnête plutôt qu'optimiste</strong> — plus vos réponses reflètent votre réalité, plus le diagnostic sera utile et les recommandations pertinentes.</p>
-    </div>
-
-    <div class="nav-wrap" style="justify-content:center;margin-top:1rem">
-      <button class="btn-next" onclick="validerComprehension()" style="background:var(--sage);box-shadow:0 4px 16px rgba(127,163,143,.3)">
-        ✅ C'est compris, je commence →
-      </button>
     </div>
   </div>
 
@@ -580,14 +570,6 @@ const ans = {};
 let currentStep = 0;
 
 /* STEPPER */
-function validerComprehension() {
-  document.getElementById("step-comprendre").style.display = "none";
-  currentStep = 1;
-  buildStepper();
-  buildDim(0);
-  window.scrollTo({top:0, behavior:"smooth"});
-}
-
 function buildStepper() {
   const s = document.getElementById("stepper");
   s.innerHTML = "";
@@ -651,6 +633,21 @@ function buildDim(dimIdx) {
      + (isLast ? "Voir mes résultats →" : "Dimension suivante →")
      + '</button></div>';
 
+  // Ajouter l'accordéon "Comment répondre" après les boutons
+  h += '<div class="accordion">'
+     + '<button class="accordion-btn" onclick="toggleAcc(this)">💡 Rappel — Comment répondre ?<span class="acc-icon">▼</span></button>'
+     + '<div class="accordion-body">'
+     + '<div class="acc-grid">'
+     + '<div class="acc-row header"><div class="acc-cell">Score</div><div class="acc-cell">Niveau</div><div class="acc-cell">Ce que ça veut dire</div></div>'
+     + '<div class="acc-row"><div class="acc-cell acc-num">0</div><div class="acc-cell" style="font-weight:600">Ignoré</div><div class="acc-cell" style="color:var(--gris)">Ce sujet n\'est pas encore sur notre radar</div></div>'
+     + '<div class="acc-row alt"><div class="acc-cell acc-num">1</div><div class="acc-cell" style="font-weight:600">Informel</div><div class="acc-cell" style="color:var(--gris)">On en parle, mais rien de structuré</div></div>'
+     + '<div class="acc-row"><div class="acc-cell acc-num">2</div><div class="acc-cell" style="font-weight:600">Pilote</div><div class="acc-cell" style="color:var(--gris)">Des initiatives existent, mais isolées</div></div>'
+     + '<div class="acc-row alt"><div class="acc-cell acc-num">3</div><div class="acc-cell" style="font-weight:600">Structuré</div><div class="acc-cell" style="color:var(--gris)">Processus clairs en place, management actif</div></div>'
+     + '<div class="acc-row"><div class="acc-cell acc-num" style="color:var(--sage)">4</div><div class="acc-cell" style="font-weight:600;color:var(--sage)">Intégré</div><div class="acc-cell" style="color:var(--gris)">Ancré dans les pratiques, valeur mesurable</div></div>'
+     + '</div>'
+     + '<p class="acc-note">💬 <strong>Soyez honnête plutôt qu\'optimiste</strong> — plus vos réponses reflètent votre réalité, plus le diagnostic sera utile.</p>'
+     + '</div></div>';
+
   c.innerHTML = h;
 
   // Injecter la légende compacte à partir de la dim 2 seulement
@@ -686,10 +683,7 @@ function goNext() {
     var e = document.getElementById("email").value.trim();
     // Coordonnées optionnelles — pas de validation obligatoire
     document.getElementById("step-0").style.display = "none";
-    // Afficher la page "Comment répondre" avant les questions
-    document.getElementById("step-comprendre").style.display = "block";
-    window.scrollTo({top:0, behavior:"smooth"});
-    return;
+    currentStep = 1;
   } else if (currentStep < DIMS.length) {
     currentStep++;
   } else {
@@ -858,6 +852,13 @@ function toast(icon,msg,type){
   el.className="toast on "+(type||"");
   clearTimeout(tt);
   tt=setTimeout(function(){el.classList.remove("on");},5000);
+}
+
+/* Accordéon Comment répondre */
+function toggleAcc(btn) {
+  btn.classList.toggle("open");
+  var body = btn.nextElementSibling;
+  body.classList.toggle("open");
 }
 
 /* Posture radio */
